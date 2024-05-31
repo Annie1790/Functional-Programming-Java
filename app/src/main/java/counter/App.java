@@ -48,8 +48,7 @@ public class App {
             public int compare(Apple current, Apple next) {
                 if (current.bestBefore().isBefore(next.bestBefore())) {
                     return 1;
-                }
-                else if (current.bestBefore().isEqual(next.bestBefore())) {
+                } else if (current.bestBefore().isEqual(next.bestBefore())) {
                     return 0;
                 }
                 return -1;
@@ -58,8 +57,7 @@ public class App {
         Collections.sort(someApples, (current, next) -> {
             if (current.bestBefore().isBefore(next.bestBefore())) {
                 return 1;
-            }
-            else if (current.bestBefore().isEqual(next.bestBefore())) {
+            } else if (current.bestBefore().isEqual(next.bestBefore())) {
                 return 0;
             }
             return -1;
@@ -71,8 +69,7 @@ public class App {
         comparators[0] = (current, next) -> {
             if (current.datePicked().isBefore(next.datePicked())) {
                 return 1;
-            }
-            else if (current.datePicked().isEqual(next.datePicked())) {
+            } else if (current.datePicked().isEqual(next.datePicked())) {
                 return 0;
             }
             return -1;
@@ -80,8 +77,7 @@ public class App {
         comparators[1] = (current, next) -> {
             if (current.bestBefore().isBefore(next.bestBefore())) {
                 return 1;
-            }
-            else if (current.bestBefore().isEqual(next.bestBefore())) {
+            } else if (current.bestBefore().isEqual(next.bestBefore())) {
                 return 0;
             }
             return -1;
@@ -94,24 +90,51 @@ public class App {
 
         System.out.println("Streams Exercises Output:");
         // Add your stream exercises here
-        someApples.forEach(System.out::println);
         //1
+        someApples.forEach(System.out::println);
+        //2
         someApples.stream()
                 .skip(3)
                 .forEach(System.out::println);
-        //2
+        //3
         someApples.stream()
                 .findFirst()
                 .ifPresent(System.out::println);
-        //3
+        //4
         someApples
                 .stream()
-                .filter(date -> date.bestBefore()
-                        .isBefore(LocalDate.of(2023,04,15)))
+                .filter(date -> date.bestBefore().isBefore(LocalDate.of(2023, 04, 15)))
                 .forEach(System.out::println);
-        //4
-
-
+        //5
+        someApples
+                .stream()
+                .filter(date -> date.bestBefore().isBefore(LocalDate.of(2023, 04, 15)))
+                .forEach(apple -> System.out.println(String.format("There is a %s apple that is best before %s", apple.colour().toString(), apple.bestBefore().toString())));
+        //6
+        someApples
+                .stream()
+                .filter(apple -> apple.colour().equals(Colour.RED))
+                .forEach(apple -> System.out.println(String.format("There is a %s apple that is best before %s", apple.colour().toString(), apple.bestBefore().toString())));
+        //7
+        someApples
+                .stream()
+                .skip(3)
+                .sorted((current, next) -> {
+                    if (current.datePicked().isBefore(next.datePicked())) {
+                        return 1;
+                    } else if (current.datePicked().isEqual(next.datePicked())) {
+                        return 0;
+                    } else {
+                        return -1;
+                    }
+                })
+                .forEach(apple -> System.out.println(apple.colour().toString()));
+        //8
+        someApples
+                .stream()
+                .filter(apple -> apple.colour().toString().contains("e"))
+                .forEach(apple -> System.out.println(String.format("There is a %s apple that is best before %s", apple.colour().toString(), apple.bestBefore().toString())));
+        //9
 
         System.out.println("Predicate Exercises Output:");
         Counter<Apple> appleCounter = new Counter<>();
