@@ -3,16 +3,17 @@
  */
 package counter;
 
-import counter.items.Apple;
-import counter.items.Box;
-import counter.items.Cart;
-import counter.items.Colour;
+import counter.items.*;
 
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class App {
+    static MyComparator myComparator;
+
     public static void main(String[] argv) {
         // Some things to count
         List<Apple> someApples = Arrays.asList(
@@ -34,10 +35,31 @@ public class App {
         cart.add(boxOfApples);
 
         System.out.println("Lambda Exercise Output:");
+//        someApples
+//                .sort((current, next) -> myComparator.compare(current, next));
+//        someApples.forEach(System.out::println);
         // Add your lambda exercises here
 
         System.out.println("Streams Exercises Output:");
         // Add your stream exercises here
+        someApples.forEach(System.out::println);
+        //1
+        someApples.stream()
+                .skip(3)
+                .forEach(System.out::println);
+        //2
+        someApples.stream()
+                .findFirst()
+                .ifPresent(System.out::println);
+        //3
+        someApples
+                .stream()
+                .filter(date -> date.bestBefore()
+                        .isBefore(LocalDate.of(2023,04,15)))
+                .forEach(System.out::println);
+
+
+
 
         System.out.println("Predicate Exercises Output:");
         Counter<Apple> appleCounter = new Counter<>();
