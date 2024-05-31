@@ -12,7 +12,12 @@ import java.util.Comparator;
 import java.util.List;
 
 public class App {
-    static MyComparator myComparator;
+    static MyComparator myComparator = new MyComparator();
+
+    private static void printApples(List<Apple> appleList, Comparator<Apple> appleComparator) {
+        Collections.sort(appleList, appleComparator);
+        appleList.forEach(apple -> System.out.println(apple));
+    }
 
     public static void main(String[] argv) {
         // Some things to count
@@ -35,10 +40,57 @@ public class App {
         cart.add(boxOfApples);
 
         System.out.println("Lambda Exercise Output:");
-//        someApples
-//                .sort((current, next) -> myComparator.compare(current, next));
-//        someApples.forEach(System.out::println);
         // Add your lambda exercises here
+        //1
+        Collections.sort(someApples, myComparator);
+        Collections.sort(someApples, new Comparator<Apple>() {
+            @Override
+            public int compare(Apple current, Apple next) {
+                if (current.bestBefore().isBefore(next.bestBefore())) {
+                    return 1;
+                }
+                else if (current.bestBefore().isEqual(next.bestBefore())) {
+                    return 0;
+                }
+                return -1;
+            }
+        });
+        Collections.sort(someApples, (current, next) -> {
+            if (current.bestBefore().isBefore(next.bestBefore())) {
+                return 1;
+            }
+            else if (current.bestBefore().isEqual(next.bestBefore())) {
+                return 0;
+            }
+            return -1;
+        });
+        //2
+        someApples.forEach(apple -> System.out.println(apple));
+        //3
+        Comparator<Apple>[] comparators = new Comparator[3];
+        comparators[0] = (current, next) -> {
+            if (current.datePicked().isBefore(next.datePicked())) {
+                return 1;
+            }
+            else if (current.datePicked().isEqual(next.datePicked())) {
+                return 0;
+            }
+            return -1;
+        };
+        comparators[1] = (current, next) -> {
+            if (current.bestBefore().isBefore(next.bestBefore())) {
+                return 1;
+            }
+            else if (current.bestBefore().isEqual(next.bestBefore())) {
+                return 0;
+            }
+            return -1;
+        };
+        comparators[2] = (current, next) -> {
+            return current.colour().toString().compareTo(next.colour().toString());
+        };
+
+        printApples(someApples, comparators[2]);
 
         System.out.println("Streams Exercises Output:");
         // Add your stream exercises here
@@ -57,7 +109,7 @@ public class App {
                 .filter(date -> date.bestBefore()
                         .isBefore(LocalDate.of(2023,04,15)))
                 .forEach(System.out::println);
-
+        //4
 
 
 
