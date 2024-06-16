@@ -135,6 +135,7 @@ public class App {
                 .filter(apple -> apple.colour().toString().contains("e"))
                 .forEach(apple -> System.out.println(String.format("There is a %s apple that is best before %s", apple.colour().toString(), apple.bestBefore().toString())));
         //9
+        //hello
 
         System.out.println("Predicate Exercises Output:");
         Counter<Apple> appleCounter = new Counter<>();
