@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.Predicate;
 
 public class App {
     static MyComparator myComparator = new MyComparator();
@@ -145,6 +146,14 @@ public class App {
         someApples.forEach(appleCounter::add);
         System.out.println("Below should be 8");
         System.out.println(appleCounter.getCount()); // Should be 8
+
+        Counter<Apple> allAppleCounter = new Counter<>();
+        someApples.forEach(allAppleCounter::add);
+        System.out.println("for all apples " + allAppleCounter.getCount());
+
+        Counter<Apple> redApples = new Counter<>((apple) -> apple.colour().equals(Colour.RED));
+        someApples.forEach(redApples::add);
+        System.out.println("for red apples " + redApples.getCount());
 
         Counter<Cart<Apple>> cartCounter = new Counter<>();
         cartCounter.add(cart);
