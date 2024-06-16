@@ -135,7 +135,10 @@ public class App {
                 .filter(apple -> apple.colour().toString().contains("e"))
                 .forEach(apple -> System.out.println(String.format("There is a %s apple that is best before %s", apple.colour().toString(), apple.bestBefore().toString())));
         //9
-        //hello
+        someApples
+                .stream()
+                .filter(apple -> apple.datePicked().isAfter(LocalDate.of(2023, 04, 12)))
+                .count();
 
         System.out.println("Predicate Exercises Output:");
         Counter<Apple> appleCounter = new Counter<>();
