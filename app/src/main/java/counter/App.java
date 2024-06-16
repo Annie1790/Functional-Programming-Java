@@ -143,18 +143,20 @@ public class App {
         System.out.println("Predicate Exercises Output:");
         Counter<Apple> appleCounter = new Counter<>();
         someApples.forEach(appleCounter::add);
-
+        System.out.println("Below should be 8");
         System.out.println(appleCounter.getCount()); // Should be 8
 
         Counter<Cart<Apple>> cartCounter = new Counter<>();
         cartCounter.add(cart);
 
+        System.out.println("Below should be 2");
         System.out.println(cartCounter.getCount()); // Should be 2 (number of apples in the cart in total)
 
         Counter<Countable> anythingCounter = new Counter<>();
         someApples.forEach(anythingCounter::add);
         anythingCounter.add(cart);
 
+        System.out.println("Below should be 10");
         System.out.println(anythingCounter.getCount()); // Should be 10 - sum of the above
     }
 }
